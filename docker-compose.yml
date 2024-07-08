@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+  db:
+    image: mariadb
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: udon_api
+      MYSQL_USER: orelabk6
+      MYSQL_PASSWORD: orelabk6
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    ports:
+      - "3355:3306"
+ 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8082:80"
+    depends_on:
+      - db
+
+volumes:
+  mariadb-data:
